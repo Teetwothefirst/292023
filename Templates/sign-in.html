@@ -1,0 +1,98 @@
+<!--Inspiration for this signin page came from Adebola Ayodeji and https://www.amazon.com/ap/signin?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3Fref_%3Dnav_signin&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=usflex&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&-->
+
+<!DOCTYPE HTML>
+<html> 
+    <head>
+        <link rel="stylesheet" href="style_sign_in.css">
+        <title> Smart Lock System</title>
+
+    </head>
+    <body>
+        <header>
+            <div class="head">
+                <div class="head-img">
+                <img src="img/logo.jpg" alt="TFS security logo" title="TFS security">
+                </div>
+                <div class="head-links">
+                    <a href="index.html">Home</a>
+                    <a href="sign-up.html">Sign-up</a>
+                    <a href="about.html">About Us</a>
+                </div>
+            </div>
+        </header>
+        <main>      
+            <div id = "Log-in">
+                <h2>Sign-in</h2>
+                <div class="Sign-in">
+                    <form id="signinForm">
+                        <label for="Email">Email</label>
+                        <input type="text" name="email" id="email" placeholder="Enter your email" required>
+                        <br><br>
+                        <label for="Password">Password</label>
+                        <input type="password" name="Password" id="Password" placeholder="Enter your Passkey" required>
+                        <br><br>
+                        <input type="submit" name="submit">
+                    </form>
+                </div>
+                <p>By continuing, you agree to TFS's Conditions of Use and Privacy Notice. </p>
+                
+            </div>
+            <div class="newuser">
+                <h3>New to TFS?</h3>
+                <button><a href="sign-up.html">Create Account</a></button>
+            </div>
+        </main>
+        <footer>
+            <div class="footer-logo">
+                <img src="img/logo.jpg" alt="TFS Logo">
+            </div>
+            <div>
+                <small>@ TFS 2023</small>
+            </div>
+            <div class="socials">
+                <img src="img/twitter.png" alt="Twitter Logo">
+                <img src="img/linkedin.png" alt="Twitter Logo">
+                <img src="img/instagram.png" alt="Twitter Logo">
+                <img src="img/github.png" alt="Twitter Logo">
+                <img src="img/facebook.png" alt="Twitter Logo">
+            </div>
+        </footer>
+    </body>
+    <script>
+        const signin = document.getElementById("signinForm");
+signin.addEventListener("submit", e => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("Password").value;
+    
+    fetch(`http://localhost:8000/login`, {
+        method: "POST",
+        headers: {'Content-Type': 'application/json;charset=utf-8'},
+        body: JSON.stringify({email: email, password:password}),
+    }).then(response =>  response.json())
+    .then(res => {
+        if(res.result === 1){
+            const email = res.response?.rows[0]?.email;
+            const firstName = res.response?.rows[0]?.firstname;
+            const lastName = res.response?.rows[0]?.lastname;
+            const user = {email: email, firstName: firstName, lastName: lastName}
+            localStorage.setItem("userInfo", JSON.stringify(user));
+           window.location.replace("./profile.html");
+        }else if(res.result === 0){
+            window.alert("You don't have an account");
+        }else if(res.result === 2){
+            window.alert("Your password is wrong");
+        }else{
+            window.alert("An error occured");
+        }
+    }).catch(err => {
+             if(err === 'ERR_NETWORK'){
+                window.alert("No internet connection");
+            }else{
+                window.alert("An error occured");
+            }
+    })
+})
+    </script>
+</html>
+

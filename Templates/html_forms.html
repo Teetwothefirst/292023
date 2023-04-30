@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html> 
+<head>
+    <title> HTML FORMS</title>
+</head>
+<body>
+    <!--Link to Homepage-->
+    <a href="index.html">Home</a>
+    
+<h1>HTML FORMS</h1>
+    <form>
+        <label for="username">Enter Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        <br><br>
+        <label for="email">Enter Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        <br><br>
+        <label for="password" >Enter Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your passkey" required>
+        <br><br>
+        
+        <h4>Select your gender</h4>
+        <input type="radio" id = "1" name="gender" value="Male">
+        <label for="1">Male</label>
+
+          <input type="radio" id = "2" name="gender" value="Female">
+        <label for="2">Female</label>
+
+        <input type="radio" id = "3" name="gender" value="other">
+        <label for="3">other</label>
+
+        <br><br>
+        <label for="question">Security Question:</label>
+        <select name="question" id="question">
+            <option value="q1">What is your fav color</option>
+            <option value="q2">What is your fav pet</option>
+            <option value="q3">Who is your fav Aunty</option>
+        </select>
+        <br><br>
+
+        <label for="answer">Security question answer: </label>
+        <input type="text" name="answer" id="answer">
+        <br><br>
+
+        <label for="bio">Your Bio:</label>
+        <textarea name="bio" id="bio" cols="30" rows="10" placeholder="Write a short Bio"></textarea>
+        <br><br>
+        <input type="submit" id="submit">
+        <br><br>
+        <label for="state">Choose your state: </label>
+        <select name="state" id="state" >
+            <option value="s1">Ondo</option>
+            <option value="s2">Sokoto</option>
+            <option value="s3">Ekiti</option>
+            <option value="s4">Kwara</option>
+        </select>
+        
+    </form>
+</body>
+</html>
